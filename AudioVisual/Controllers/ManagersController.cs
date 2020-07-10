@@ -1,47 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AudioVisual.Domain.Contracts;
+using AudioVisual.Domain.Contracts.FilterOptions;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Newtonsoft.Json;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace AudioVisual.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ManagersController : ControllerBase
     {
-        // GET: api/<ManagersController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetUpcomingMovies([FromQuery] SearchOptions options)
         {
-            return new string[] { "value1", "value2" };
+            // Example: https://localhost:44367/api/Viewers/GetUpcomingMovies?options.genres=[1,2]&options.ageRates=3&options.daysFromNow=15
+
+            List<string> genres = JsonConvert.DeserializeObject<List<string>>(options.Genres);
+            List<string> ageRates = JsonConvert.DeserializeObject<List<string>>(options.AgeRates);
+            int daysFromNow = options.DaysFromNow;
+
+            return Ok(new List<Movie>());
         }
 
-        // GET api/<ManagersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        public async Task<IActionResult> BuildBillboard([FromQuery] BillboardOptions options)
         {
-            return "value";
-        }
+            // Example: https://localhost:44367/api/Viewers/GetUpcomingMovies?options.genres=[1,2]&options.keywords=['bank','assault','robbery']&options.daysFromNow=15
 
-        // POST api/<ManagersController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+           // List<string> topics = JsonConvert.DeserializeObject<List<string>>(options.topics);
 
-        // PUT api/<ManagersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+            // Filter database documentaries by this list of topics
 
-        // DELETE api/<ManagersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return Ok(new List<Documentary>());
         }
     }
 }
