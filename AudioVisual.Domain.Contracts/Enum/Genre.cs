@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AudioVisual.Domain.Contracts
+namespace AudioVisual.Domain.Contracts.Enum
 {
     public enum Genre
     {

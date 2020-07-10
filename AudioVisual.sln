@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioVisual", "AudioVisual\AudioVisual.csproj", "{D67D431F-E67D-4820-AB31-C101DD36E4BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioVisual", "AudioVisual\AudioVisual.csproj", "{D67D431F-E67D-4820-AB31-C101DD36E4BB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{FD1E8DF6-1DBA-47CC-A122-1E8328E4DF2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioVisual.Domain.Contracts", "AudioVisual.Domain.Contracts\AudioVisual.Domain.Contracts.csproj", "{F38D5C11-DD23-437E-81F1-7617F08E1CD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioVisual.Domain.Contracts", "AudioVisual.Domain.Contracts\AudioVisual.Domain.Contracts.csproj", "{F38D5C11-DD23-437E-81F1-7617F08E1CD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
