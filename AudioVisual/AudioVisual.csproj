@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AudioVisual.Data\AudioVisual.Data.csproj" />
     <ProjectReference Include="..\AudioVisual.Domain.Contracts\AudioVisual.Domain.Contracts.csproj" />
   </ItemGroup>
 
