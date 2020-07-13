@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AudioVisual.Business.Interfaces;
 using AudioVisual.Domain.Contracts;
 using AudioVisual.Domain.Contracts.FilterOptions;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,20 @@ namespace AudioVisual.Controllers
     [ApiController]
     public class ManagersController : ControllerBase
     {
+        private readonly IMoviesFromAPIService _moviesFromAPIService;
+
+        public ManagersController (IMoviesFromAPIService moviesFromAPIService)
+        {
+            _moviesFromAPIService = moviesFromAPIService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllMoviesFromAPI()
+        {
+            var result = await _moviesFromAPIService.GetAllMoviesFromAPI();
+            return Ok(result);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetUpcomingMovies([FromQuery] SearchOptions options)
         {

@@ -8,7 +8,7 @@ namespace AudioVisual.DataAccess.Repositories
 {
     public class MovieRepository : Repository<Movie>, IMovieRepository
     {
-        public MovieRepository(beezycinemaContext context) : base(context)
+        public MovieRepository(BeezyCinemaContext context) : base(context)
         {
         }
 
@@ -18,9 +18,9 @@ namespace AudioVisual.DataAccess.Repositories
             return new Movie();
         }
 
-        public beezycinemaContext BeezycinemaContext
+        public BeezyCinemaContext BeezycinemaContext
         {
-            get { return Context as beezycinemaContext; }
+            get { return Context as BeezyCinemaContext; }
         }
     }
 }

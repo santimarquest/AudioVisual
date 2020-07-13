@@ -1,4 +1,8 @@
+using AudioVisual.Business.Interfaces;
+using AudioVisual.Business.Services;
+using AudioVisual.Core.Repositories;
 using AudioVisual.DataAccess;
+using AudioVisual.DataAccess.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,8 +27,14 @@ namespace AudioVisual
             services.AddControllers();
 
             // Add the DB Context.
-            services.AddDbContext<beezycinemaContext>(options => options
+            services.AddDbContext<BeezyCinemaContext>(options => options
                 .UseSqlServer(Configuration.GetConnectionString("BeezyTestDB")));
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IMoviesFromAPIService, MoviesFromAPIService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

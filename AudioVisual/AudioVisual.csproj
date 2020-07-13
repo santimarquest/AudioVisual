@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AudioVisual.DataAccess\AudioVisual.DataAccess.csproj" />
     <ProjectReference Include="..\AudioVisual.Domain.Contracts\AudioVisual.Contracts.csproj" />
+    <ProjectReference Include="..\Business\AudioVisual.Business.csproj" />
   </ItemGroup>
 
 
