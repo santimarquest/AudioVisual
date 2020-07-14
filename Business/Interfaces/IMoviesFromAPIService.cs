@@ -1,4 +1,5 @@
-﻿using AudioVisual.Core.Domain;
+﻿using AudioVisual.Contracts.DTO;
+using AudioVisual.Core.Domain;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -8,6 +9,6 @@ namespace AudioVisual.Business.Interfaces
 {
     public interface IMoviesFromAPIService
     {
-        Task<object> GetAllMoviesFromAPI();
+        Task<object> GetAllMoviesFromAPIWithGenres();
     }
 }

@@ -1,5 +1,8 @@
 ﻿
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AudioVisual.Core.Domain;
 using AudioVisual.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +30,14 @@ namespace AudioVisual.DataAccess.Repositories
         public int GetSeatsSoldForSmallRoomsByMovieInCity(int movieId, int cityId)
         {
             throw new System.NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Session>> GetSessionsWithRoom()
+        {
+            return BeezycinemaContext.Session
+                .Include(s => s.Room)
+                .Include(s => s.Room.Cinema)
+                .Where(s => s.Room.Size == "Big");
         }
     }
 }

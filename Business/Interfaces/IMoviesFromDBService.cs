@@ -1,4 +1,5 @@
-﻿using AudioVisual.Core.Domain;
+﻿using AudioVisual.Contracts.DTO;
+using AudioVisual.Core.Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,5 +9,6 @@ namespace AudioVisual.Business.Interfaces
     {
         Task<IEnumerable<Movie>> GetAllMoviesFromDB();
         Task< IEnumerable<Movie>> GetCriteriaRecommendationsFromDB();
+        Task <IEnumerable<MovieDTO>> GetSuccessfullMoviesForBigRoomsInCity(int cityId);
     }
 }

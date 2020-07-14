@@ -32,7 +32,9 @@ namespace AudioVisual
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<ISessionRepository, SessionRepository>();
             services.AddScoped<IMoviesFromAPIService, MoviesFromAPIService>();
+            services.AddScoped<IMoviesFromDBService, MoviesFromDBService>();
 
 
         }

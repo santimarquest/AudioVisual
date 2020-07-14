@@ -13,7 +13,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       // "launchUrl": "api/viewers/GetAllTimeRecommendedMovies?options.genres=[1,2]&options.keywords=['bank','assault','robbery']",
-      "launchUrl": "api/managers/GetAllMoviesFromAPI",
+      "launchUrl": "api/managers/CreateIntelligentBillBoard?billboardOptions.startDate=01-01-2020&billboardOptions.weeks=3&billboardOptions.BigRooms=5&billboardOptions.SmallRooms=3&billboardOptions.cityId=9",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -22,7 +22,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       // "launchUrl": "api/viewers/GetAllTimeRecommendedMovies?options.genres=[1,2]&options.keywords=['bank','assault','robbery']",
-      "launchUrl": "api/managers/GetAllMoviesFromAPI",
+      "launchUrl": "api/managers/CreateIntelligentBillBoard?billboardOptions.startDate=01-01-2020&billboardOptions.weeks=3&billboardOptions.BigRooms=5&billboardOptions.SmallRooms=3&billboardOptions.cityId=9",
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
