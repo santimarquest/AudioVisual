@@ -21,35 +21,12 @@ namespace AudioVisual.Business.Services
             _sessionRepository = sessionRepository;
         }
 
-        public async Task<IEnumerable<Movie>> GetSuccessfullMoviesForBigScreenFromDB()
-        {
-            var movies = _movieRepository.GetAll();
-
-
-            return null;
-        }
-
-        public async Task<IEnumerable<Movie>> GetSuccessfullMoviesForSmallScreenFromDB()
-        {
-            return _movieRepository.GetAll();
-        }
-
-        public async Task<IEnumerable<Movie>> GetCriteriaRecommendationsFromDB()
-        {
-            return null;
-        }
-
-        public Task<IEnumerable<Movie>> GetAllMoviesFromDB()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<MovieDTO>> GetSuccessfullMoviesForBigRoomsInCity(int cityId)
         {
-            var sessions = _sessionRepository.GetSessionsWithRoom().Result;
+            var sessions = _sessionRepository.GetSessionsWithBigRoomAndCinema();
             var movies = _movieRepository.GetAll();
 
-            var moviesForBigRooms =
+            var moviesForBigRooms = 
                 from m in movies
                 join s in sessions on m.Id equals s.MovieId
                 orderby s.SeatsSold descending
@@ -62,6 +39,25 @@ namespace AudioVisual.Business.Services
                 };
 
             return moviesForBigRooms;
+        }
+
+        public async Task<IEnumerable<Genre>> GetGenresFromSuccesfullMovies(IEnumerable<MovieDTO> successfullMovies)
+        {
+            var resultGenres = new List<Genre>();
+
+            foreach (var movie in successfullMovies) 
+            {
+                var genres = await Task.Run(() => _movieRepository.GetMovieGenres(movie.Id));
+                foreach (var genre in genres)
+                {
+                    if (!resultGenres.Contains(genre))
+                    {
+                        resultGenres.Add(genre);
+                    }
+                }
+            }
+
+            return resultGenres;
         }
     }
 }

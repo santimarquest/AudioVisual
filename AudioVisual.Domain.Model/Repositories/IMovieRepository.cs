@@ -1,9 +1,10 @@
 using AudioVisual.Core.Domain;
+using System.Collections.Generic;
 
 namespace AudioVisual.Core.Repositories
 {
     public interface IMovieRepository : IRepository<Movie>
     {
-        Movie GetMovieWithGenres(int id);
+        IEnumerable<Genre> GetMovieGenres(int id);
     }
 }

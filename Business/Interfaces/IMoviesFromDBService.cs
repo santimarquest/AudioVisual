@@ -7,8 +7,7 @@ namespace AudioVisual.Business.Interfaces
 {
     public interface IMoviesFromDBService
     {
-        Task<IEnumerable<Movie>> GetAllMoviesFromDB();
-        Task< IEnumerable<Movie>> GetCriteriaRecommendationsFromDB();
         Task <IEnumerable<MovieDTO>> GetSuccessfullMoviesForBigRoomsInCity(int cityId);
+        Task<IEnumerable<Genre>> GetGenresFromSuccesfullMovies(IEnumerable<MovieDTO> successfullMovies);
     }
 }

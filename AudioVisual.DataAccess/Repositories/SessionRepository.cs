@@ -21,18 +21,7 @@ namespace AudioVisual.DataAccess.Repositories
             get { return Context as BeezyCinemaContext; }
         }
 
-        public int GetSeatsSoldForBigRoomsByMovieInCity(int movieId, int cityId)
-        {
-            var seats = BeezycinemaContext.Session.Find(movieId, cityId);
-            return 0;
-        }
-
-        public int GetSeatsSoldForSmallRoomsByMovieInCity(int movieId, int cityId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<IEnumerable<Session>> GetSessionsWithRoom()
+        public IEnumerable<Session> GetSessionsWithBigRoomAndCinema()
         {
             return BeezycinemaContext.Session
                 .Include(s => s.Room)

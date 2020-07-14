@@ -47,19 +47,29 @@ namespace AudioVisual.Controllers
 
             // Get genres for big rooms
             var moviesForBigRooms = await _moviesFromDBService.GetSuccessfullMoviesForBigRoomsInCity(cityId);
-            var moviesFromAPI = await _moviesFromAPIService.GetAllMoviesFromAPIWithGenres();
 
-            using var jsonDoc = JsonDocument.Parse(moviesFromAPI.ToString());
-            var root = jsonDoc.RootElement;
+            // var successfullGenres = new List<int>();
+            //var moviesFromAPI = await _moviesFromAPIService.GetAllMoviesFromAPIWithGenres();
 
-            var movieResults = root.GetProperty("results").EnumerateArray();
+            //using var jsonDoc = JsonDocument.Parse(moviesFromAPI.ToString());
+            //var root = jsonDoc.RootElement;
 
-            foreach (var item in movieResults)
-            {
-                var itemDoc = JsonDocument.Parse(item.ToString());
-                var itemRoot = itemDoc.RootElement;
-                var genres = itemRoot.GetProperty("genre_ids");
-            }
+            //var movieResults = root.GetProperty("results").EnumerateArray();
+
+            //foreach (var result in movieResults)
+            //{
+            //    var resultDoc = JsonDocument.Parse(result.ToString());
+            //    var resultRoot = resultDoc.RootElement;
+            //    var genres = resultRoot.GetProperty("genre_ids").EnumerateArray();
+
+            //    foreach (var genre in genres)
+            //    {
+            //        var value = genre.TryGetInt32(out int genreId);
+            //        if (!successfullGenres.Contains(genreId)) {
+            //            successfullGenres.Add(genreId);
+            //        }
+            //    }
+            // }
 
             // var genresForBigRooms =
             //from mfbr in moviesForBigRooms
