@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AudioVisual.Domain.Contracts\AudioVisual.Contracts.csproj" />
     <ProjectReference Include="..\AudioVisual.Domain.Model\AudioVisual.Core.csproj" />
   </ItemGroup>
 

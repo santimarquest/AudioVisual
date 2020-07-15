@@ -21,12 +21,12 @@ namespace AudioVisual.DataAccess.Repositories
             get { return Context as BeezyCinemaContext; }
         }
 
-        public IEnumerable<Session> GetSessionsWithBigRoomAndCinema()
+        public IEnumerable<Session> GetSessionsWithRoomAndCinema(string sizeRoom)
         {
             return BeezycinemaContext.Session
                 .Include(s => s.Room)
                 .Include(s => s.Room.Cinema)
-                .Where(s => s.Room.Size == "Big");
+                .Where(s => s.Room.Size == sizeRoom);
         }
     }
 }

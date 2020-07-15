@@ -6,6 +6,6 @@ namespace AudioVisual.Core.Repositories
 {
     public interface ISessionRepository : IRepository<Session>
     {
-        IEnumerable<Session> GetSessionsWithBigRoomAndCinema();
+        IEnumerable<Session> GetSessionsWithRoomAndCinema(string sizeRoom);
     }
 }

@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using AudioVisual.Contracts.DTO;
 using AudioVisual.Core.Domain;
 using AudioVisual.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,6 @@ namespace AudioVisual.DataAccess.Repositories
     {
         public MovieRepository(BeezyCinemaContext context) : base(context)
         {
-        }
-
-        public Movie GetMovieWithGenres(int id)
-        {
-            // return BeezycinemaContext.Movie.Include(a => a.).SingleOrDefault(a => a.Id == id);
-            return new Movie();
         }
 
         public IEnumerable<Genre> GetMovieGenres(int movieId)
@@ -37,6 +32,23 @@ namespace AudioVisual.DataAccess.Repositories
             };
 
             return resultGenres;
+        }
+
+        public IEnumerable<MovieDTO> GetMoviesWithGenres()
+        {
+
+            var movies = BeezycinemaContext.Movie;
+
+            var moviesWithGenres =
+                from m in movies
+                select new MovieDTO
+                {
+                    Id = m.Id,
+                    Title = m.OriginalTitle,
+                    genres = GetMovieGenres(m.Id).ToList()
+                };
+
+            return moviesWithGenres;
         }
 
         public BeezyCinemaContext BeezycinemaContext

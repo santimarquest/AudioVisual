@@ -21,24 +21,39 @@ namespace AudioVisual.Business.Services
             _sessionRepository = sessionRepository;
         }
 
-        public async Task<IEnumerable<MovieDTO>> GetSuccessfullMoviesForBigRoomsInCity(int cityId)
+        public async Task<IEnumerable<MovieDTO>> GetSuccessfullMoviesInCity(int cityId, string sizeRoom, int numberOfMovies)
         {
-            var sessions = _sessionRepository.GetSessionsWithBigRoomAndCinema();
+            var sessions = _sessionRepository.GetSessionsWithRoomAndCinema(sizeRoom);
             var movies = _movieRepository.GetAll();
 
-            var moviesForBigRooms = 
+            var moviesForSizeRooms = 
                 from m in movies
                 join s in sessions on m.Id equals s.MovieId
-                orderby s.SeatsSold descending
+                where (s.Room.Cinema.CityId == cityId)
+               // orderby m.Id, s.SeatsSold descending
+                // group m by m.Id into movieGroup
                 select new MovieDTO
                 {
                    Id = m.Id,
                    Title = m.OriginalTitle,
-                   SeatsSold  = s.SeatsSold,
-                   CityId = (s?.Room?.Cinema?.CityId == cityId) ? cityId : 0
+                   SeatsSold = s.SeatsSold,
+                   CityId = cityId
                 };
 
-            return moviesForBigRooms;
+            var groupSeatsSold =
+            from movie in moviesForSizeRooms
+            group movie by movie.Id into movieGroup
+            select new MovieDTO
+            {
+                Id = movieGroup.Key,
+                Title = movieGroup.First().Title,
+                CityId = movieGroup.First().CityId,
+                SeatsSold = movieGroup.Sum(x => x.SeatsSold),
+            };
+
+            return groupSeatsSold
+                .OrderByDescending(x => x.SeatsSold)
+                .Take(numberOfMovies);
         }
 
         public async Task<IEnumerable<Genre>> GetGenresFromSuccesfullMovies(IEnumerable<MovieDTO> successfullMovies)
@@ -50,7 +65,7 @@ namespace AudioVisual.Business.Services
                 var genres = await Task.Run(() => _movieRepository.GetMovieGenres(movie.Id));
                 foreach (var genre in genres)
                 {
-                    if (!resultGenres.Contains(genre))
+                    if (!resultGenres.Any(rg => rg.Id == genre.Id))
                     {
                         resultGenres.Add(genre);
                     }
