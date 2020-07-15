@@ -45,13 +45,12 @@ namespace AudioVisual.Controllers
             var numberOfMoviesForBigRooms = bigRooms * weeks;
             var numberOfMoviesForSmallRooms = smallRooms * weeks;
 
-            // Get genres for big rooms
+            // Get successfull movies for big rooms in a city, and from them, get successfull genres for big rooms in that city
             var moviesForBigRooms = await _moviesFromDBService.GetSuccessfullMoviesInCity(cityId, sizeRoom:"Big", numberOfMoviesForBigRooms);
             var genresForBigRooms = await _moviesFromDBService.GetGenresFromSuccesfullMovies(moviesForBigRooms);
-
-            // // Get genres for small rooms
-            var moviesForSmallRooms = await _moviesFromDBService.GetSuccessfullMoviesInCity(cityId, sizeRoom: "Small", numberOfMoviesForSmallRooms);
-            var genresForSmallRooms = await _moviesFromDBService.GetGenresFromSuccesfullMovies(moviesForSmallRooms);
+     
+            // all genres not suitable for big rooms, are suitable for small rooms.
+            var genresForSmallRooms = await _moviesFromDBService.GetGenresForSmallRooms(genresForBigRooms);
 
             // var successfullGenres = new List<int>();
             //var moviesFromAPI = await _moviesFromAPIService.GetAllMoviesFromAPIWithGenres();

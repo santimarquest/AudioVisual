@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AudioVisual.Contracts.DTO;
 using AudioVisual.Core.Domain;
 using AudioVisual.Core.Repositories;
@@ -49,6 +50,12 @@ namespace AudioVisual.DataAccess.Repositories
                 };
 
             return moviesWithGenres;
+        }
+
+        public async Task<IEnumerable<Genre>> GetGenresForSmallRooms(IEnumerable<Genre> genresForBigRooms)
+        {
+            var genres = BeezycinemaContext.Genre.Where(g => !g.Name.Contains("TV")).ToList();
+            return await Task.Run(() => genres.Where(g => !genresForBigRooms.Any(gbr => gbr.Id == g.Id)));
         }
 
         public BeezyCinemaContext BeezycinemaContext

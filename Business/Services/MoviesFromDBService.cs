@@ -53,7 +53,7 @@ namespace AudioVisual.Business.Services
 
             return groupSeatsSold
                 .OrderByDescending(x => x.SeatsSold)
-                .Take(numberOfMovies);
+                .Take(numberOfMovies * 3);
         }
 
         public async Task<IEnumerable<Genre>> GetGenresFromSuccesfullMovies(IEnumerable<MovieDTO> successfullMovies)
@@ -73,6 +73,11 @@ namespace AudioVisual.Business.Services
             }
 
             return resultGenres;
+        }
+
+        public Task<IEnumerable<Genre>> GetGenresForSmallRooms(IEnumerable<Genre> genresForBigRooms)
+        {
+            return _movieRepository.GetGenresForSmallRooms(genresForBigRooms);
         }
     }
 }
