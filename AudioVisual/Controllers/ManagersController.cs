@@ -52,8 +52,12 @@ namespace AudioVisual.Controllers
             // all genres not suitable for big rooms, are suitable for small rooms.
             var genresForSmallRooms = await _moviesFromDBService.GetGenresForSmallRooms(genresForBigRooms);
 
-            // var successfullGenres = new List<int>();
-            //var moviesFromAPI = await _moviesFromAPIService.GetAllMoviesFromAPIWithGenres();
+            // Now we are starting to create the billboard, taking into account the billboardOptions and the genres for big and small rooms
+            var genresAPI = await _moviesFromAPIService.GetGenres();
+            List<GenreDTO> genresDB = await _moviesFromDBService.MapGenresAPIToGenresDB(genresAPI);
+
+            var moviesFromAPIForBigRooms = await _moviesFromAPIService.GetAllMoviesFromAPIWithGenres(genresForBigRooms, genresDB);
+            var moviesFromAPIForSmallRooms = await _moviesFromAPIService.GetAllMoviesFromAPIWithGenres(genresForSmallRooms, genresDB);
 
             //using var jsonDoc = JsonDocument.Parse(moviesFromAPI.ToString());
             //var root = jsonDoc.RootElement;

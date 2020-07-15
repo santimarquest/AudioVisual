@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AudioVisual.Business.Services
@@ -78,6 +79,34 @@ namespace AudioVisual.Business.Services
         public Task<IEnumerable<Genre>> GetGenresForSmallRooms(IEnumerable<Genre> genresForBigRooms)
         {
             return _movieRepository.GetGenresForSmallRooms(genresForBigRooms);
+        }
+
+        public async Task<List<GenreDTO>> MapGenresAPIToGenresDB(object genresAPI)
+        {
+            var genresDTO = new List<GenreDTO>();
+
+            using var jsonDoc = JsonDocument.Parse(genresAPI.ToString());
+            var root = jsonDoc.RootElement;
+
+            var genres = root.GetProperty("genres").EnumerateArray().ToList();
+
+            var genresDB = await _movieRepository.GetGenres();
+
+            foreach (var genre in genres)
+            {
+                var genreDTO = new GenreDTO
+                {
+                    // genres[0].GetProperty("id").TryGetInt32(out int value)
+
+                    APIId = (genre.GetProperty("id").TryGetInt32(out int value)) ? value : 0,
+                    Name = genre.GetProperty("name").ToString(),
+                    Id = _movieRepository.GetGenreIdInDBByName(genre.GetProperty("name").ToString())
+                };
+
+                genresDTO.Add(genreDTO);
+            }
+
+            return genresDTO;
         }
     }
 }

@@ -58,6 +58,16 @@ namespace AudioVisual.DataAccess.Repositories
             return await Task.Run(() => genres.Where(g => !genresForBigRooms.Any(gbr => gbr.Id == g.Id)));
         }
 
+        public async Task<IEnumerable<Genre>> GetGenres()
+        {
+            return await Task.Run(() => BeezycinemaContext.Genre);
+        }
+
+        public int GetGenreIdInDBByName(string genreName)
+        {
+            return BeezycinemaContext.Genre.FirstOrDefault(g => g.Name == genreName).Id;
+        }
+
         public BeezyCinemaContext BeezycinemaContext
         {
             get { return Context as BeezyCinemaContext; }

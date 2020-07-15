@@ -9,6 +9,7 @@ namespace AudioVisual.Business.Interfaces
 {
     public interface IMoviesFromAPIService
     {
-        Task<object> GetAllMoviesFromAPIWithGenres();
+        Task<object> GetAllMoviesFromAPIWithGenres(IEnumerable<Genre> genresForRooms, IEnumerable<GenreDTO> genresDB);
+        Task <object> GetGenres();
     }
 }
