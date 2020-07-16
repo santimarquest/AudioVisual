@@ -46,7 +46,7 @@ namespace AudioVisual.DataAccess.Repositories
                 {
                     Id = m.Id,
                     Title = m.OriginalTitle,
-                    genres = GetMovieGenres(m.Id).ToList()
+                    Genres = GetMovieGenres(m.Id).ToList()
                 };
 
             return moviesWithGenres;

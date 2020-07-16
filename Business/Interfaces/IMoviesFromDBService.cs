@@ -8,6 +8,7 @@ namespace AudioVisual.Business.Interfaces
     public interface IMoviesFromDBService
     {
         Task <IEnumerable<MovieDTO>> GetSuccessfullMoviesInCity(int cityId, string sizeRoom, int numberOfMovies);
+        Task<IEnumerable<MovieDTO>> GetSuccessfullMoviesInCity(int cityId, string sizeRoom, int numberOfMoviesForSmallRooms, IEnumerable<Genre> genresForBigRooms);
         Task<IEnumerable<Genre>> GetGenresFromSuccesfullMovies(IEnumerable<MovieDTO> successfullMovies);
         Task<IEnumerable<Genre>> GetGenresForSmallRooms(IEnumerable<Genre> genresForBigRooms);
         Task<List<GenreDTO>> MapGenresAPIToGenresDB(object genresAPI);

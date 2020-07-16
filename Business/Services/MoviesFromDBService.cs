@@ -31,14 +31,12 @@ namespace AudioVisual.Business.Services
                 from m in movies
                 join s in sessions on m.Id equals s.MovieId
                 where (s.Room.Cinema.CityId == cityId)
-               // orderby m.Id, s.SeatsSold descending
-                // group m by m.Id into movieGroup
                 select new MovieDTO
                 {
                    Id = m.Id,
                    Title = m.OriginalTitle,
                    SeatsSold = s.SeatsSold,
-                   CityId = cityId
+                   CityId = cityId,
                 };
 
             var groupSeatsSold =
@@ -50,6 +48,7 @@ namespace AudioVisual.Business.Services
                 Title = movieGroup.First().Title,
                 CityId = movieGroup.First().CityId,
                 SeatsSold = movieGroup.Sum(x => x.SeatsSold),
+                Genres = _movieRepository.GetMovieGenres(movieGroup.Key).ToList()
             };
 
             return groupSeatsSold
@@ -63,7 +62,8 @@ namespace AudioVisual.Business.Services
 
             foreach (var movie in successfullMovies) 
             {
-                var genres = await Task.Run(() => _movieRepository.GetMovieGenres(movie.Id));
+                // var genres = await Task.Run(() => _movieRepository.GetMovieGenres(movie.Id));
+                var genres = movie.Genres;
                 foreach (var genre in genres)
                 {
                     if (!resultGenres.Any(rg => rg.Id == genre.Id))
@@ -76,9 +76,15 @@ namespace AudioVisual.Business.Services
             return resultGenres;
         }
 
-        public Task<IEnumerable<Genre>> GetGenresForSmallRooms(IEnumerable<Genre> genresForBigRooms)
+        public async Task<IEnumerable<Genre>> GetGenresForSmallRooms(IEnumerable<Genre> genresForBigRooms)
         {
-            return _movieRepository.GetGenresForSmallRooms(genresForBigRooms);
+            var genresForSmallRooms = await _movieRepository.GetGenresForSmallRooms(genresForBigRooms);
+
+            var rnd = new Random();
+            var genres = genresForSmallRooms.OrderBy(x => rnd.Next()).Take(3);
+
+            return genres;
+           
         }
 
         public async Task<List<GenreDTO>> MapGenresAPIToGenresDB(object genresAPI)
@@ -107,6 +113,30 @@ namespace AudioVisual.Business.Services
             }
 
             return genresDTO;
+        }
+
+        public async Task<IEnumerable<MovieDTO>> GetSuccessfullMoviesInCity(int cityId, string sizeRoom, int numberOfMoviesForSmallRooms, IEnumerable<Genre> genresForBigRooms)
+        {
+            var resultMovies = new List<MovieDTO>();
+            var successfullMovies = await GetSuccessfullMoviesInCity(cityId, sizeRoom, numberOfMoviesForSmallRooms);
+
+            foreach (var movie in successfullMovies) 
+            {
+
+                var genresToRemove = new HashSet<Genre>(genresForBigRooms);
+                //authorsList.RemoveAll(x => setToRemove.Contains(x));
+
+                var movieDTO = new MovieDTO();
+
+                movieDTO.Id = movie.Id;
+                movieDTO.Title = movie.Title;
+                movieDTO.CityId = movie.CityId;
+                movieDTO.SeatsSold = movie.SeatsSold;
+                movieDTO.Genres = movie.Genres.Where(m => !genresToRemove.Any(g => g.Id == m.Id)).ToList();
+                resultMovies.Add(movieDTO);
+            }
+
+            return resultMovies;             
         }
     }
 }
