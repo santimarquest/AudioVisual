@@ -49,12 +49,7 @@ namespace AudioVisual.Controllers
             var moviesForBigRooms = await _moviesFromDBService.GetSuccessfullMoviesInCity(cityId, sizeRoom:"Big", numberOfMoviesForBigRooms);
             var genresForBigRooms = await _moviesFromDBService.GetGenresFromSuccesfullMovies(moviesForBigRooms);
 
-            // Get successfull movies for small rooms in a city, and from them, get successfull genres for small rooms in that city. We don't consider
-            // genres already included for big rooms.
-            // var moviesForSmallRooms = await _moviesFromDBService.GetSuccessfullMoviesInCity(cityId, sizeRoom: "Small", numberOfMoviesForSmallRooms, genresForBigRooms);
-            // var genresForSmallRooms = await _moviesFromDBService.GetGenresFromSuccesfullMovies(moviesForSmallRooms);
-
-            // all genres not suitable for big rooms, are suitable for small rooms.
+            // All genres not suitable for big rooms, are suitable for small rooms. And we choose 3 of them randomly to build the billboard
             var genresForSmallRooms = await _moviesFromDBService.GetGenresForSmallRooms(genresForBigRooms);
 
             // Now we are starting to create the billboard, taking into account the billboardOptions and the genres for big and small rooms
