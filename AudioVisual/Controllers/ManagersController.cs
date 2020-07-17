@@ -1,6 +1,7 @@
 ﻿using AudioVisual.Business.Interfaces;
 using AudioVisual.Contracts;
 using AudioVisual.Contracts.DTO;
+using AudioVisual.Domain.Contracts;
 using AudioVisual.Domain.Contracts.Enum;
 using AudioVisual.Domain.Contracts.FilterOptions;
 using Microsoft.AspNetCore.Mvc;
@@ -58,6 +59,13 @@ namespace AudioVisual.Controllers
             //  billboard.MoviesForBigRooms = await GenerateMovies(billboard.NumberOfMoviesForBigRooms, genresDB, genresForBigRooms, RoomSize.BIG);
             //  billboard.MoviesForSmallRooms = await GenerateMovies(billboard.NumberOfMoviesForSmallRooms, genresDB, genresForSmallRooms, RoomSize.SMALL);
 
+            await GenerateMoviesForBillBoard(billboard, genresDB, genresForBigRooms, genresForSmallRooms).ConfigureAwait(false);
+
+            return Ok(billboard);
+        }
+
+        private async Task GenerateMoviesForBillBoard(BillBoard billboard, List<GenreDTO> genresDB, IEnumerable<Core.Domain.Genre> genresForBigRooms, IEnumerable<Core.Domain.Genre> genresForSmallRooms)
+        {
             var taskList = new List<Task<List<string>>>();
             taskList.Add(GenerateMovies(billboard.NumberOfMoviesForBigRooms, genresDB, genresForBigRooms, RoomSize.BIG));
             taskList.Add(GenerateMovies(billboard.NumberOfMoviesForSmallRooms, genresDB, genresForSmallRooms, RoomSize.SMALL));
@@ -66,8 +74,6 @@ namespace AudioVisual.Controllers
 
             billboard.MoviesForBigRooms = resultMovies[0];
             billboard.MoviesForSmallRooms = resultMovies[1];
-
-            return Ok(billboard);
         }
 
         private async Task<List<string>> GenerateMovies(int numberOfMovies, List<GenreDTO> genresDB, IEnumerable<Core.Domain.Genre> genres, RoomSize roomSize)
