@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AudioVisual.Contracts.DTO;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,6 +9,6 @@ namespace AudioVisual.Domain.Contracts
     {
         public DateTime Date { get; set; }
         public Room Room { get; set; }
-        public IAudioVisual AudioVisual { get; set; }
+        public MovieDTO Movie { get; set; }
     }
 }

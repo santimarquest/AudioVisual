@@ -11,6 +11,17 @@ namespace AudioVisual.Contracts
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public int NumberOfBigRooms { get; set; }
+
+        IEnumerable<GenreDTO> GenresForBigRooms { get; set; }
+
+        IEnumerable<BillBoardItem> MoviesForBigRooms { get; set; }
+
+        public int NumberOfSmallRooms { get; set; }
+
+        IEnumerable<GenreDTO> GenresForSmallRooms { get; set; }
+
+        IEnumerable<BillBoardItem> MoviesForSmallRooms { get; set; }
 
 
         public static BillboardBuilder CreateBillboard()
@@ -46,12 +57,7 @@ namespace AudioVisual.Contracts
             return this;
         }
 
-        public BillboardBuilder GetMoviesForBigRooms(int cityId, string sizeRoom, int numberOfMoviesForBigRooms)
-        {
-            return this;
-        }
-
-        public BillboardBuilder GetMoviesForSmallRooms(int cityId, string sizeRoom, int numberOfMoviesForBigRooms)
+        public BillboardBuilder GetMoviesFromAPI(int cityId, string sizeRoom, int numberOfMoviesForBigRooms, int numberOfMoviesForSmallRooms)
         {
             return this;
         }

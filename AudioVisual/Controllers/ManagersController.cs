@@ -7,6 +7,7 @@ using AudioVisual.Business.Interfaces;
 using AudioVisual.Contracts.DTO;
 using AudioVisual.Core.Domain;
 using AudioVisual.Domain.Contracts;
+using AudioVisual.Domain.Contracts.Enum;
 using AudioVisual.Domain.Contracts.FilterOptions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -56,8 +57,11 @@ namespace AudioVisual.Controllers
             var genresAPI = await _moviesFromAPIService.GetGenres();
             List<GenreDTO> genresDB = await _moviesFromDBService.MapGenresAPIToGenresDB(genresAPI);
 
-            var moviesFromAPIForBigRooms = await _moviesFromAPIService.GetAllMoviesFromAPIWithGenres(genresForBigRooms, genresDB);
-            var moviesFromAPIForSmallRooms = await _moviesFromAPIService.GetAllMoviesFromAPIWithGenres(genresForSmallRooms, genresDB);
+            var filterForBigRooms = _moviesFromAPIService.SetFilter(genresForBigRooms, genresDB, RoomSize.BIG);
+            var filterForSmallRooms = _moviesFromAPIService.SetFilter(genresForSmallRooms, genresDB, RoomSize.SMALL);
+
+            var moviesFromAPIForBigRooms = await _moviesFromAPIService.GetMoviesFromAPI(filterForBigRooms);
+            var moviesFromAPIForSmallRooms = await _moviesFromAPIService.GetMoviesFromAPI(filterForSmallRooms);
 
             //using var jsonDoc = JsonDocument.Parse(moviesFromAPI.ToString());
             //var root = jsonDoc.RootElement;
