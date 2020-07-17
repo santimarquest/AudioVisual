@@ -17,6 +17,8 @@ namespace AudioVisual.Domain.Contracts
             NumberOfMoviesForBigRooms = numberOfMoviesForBigRooms;
             NumberOfMoviesForSmallRooms = numberOfMoviesForSmallRooms;
             CityId = cityId;
+            MoviesForBigRooms = new List<string>();
+            MoviesForSmallRooms = new List<string>();
 
         }
 
@@ -28,8 +30,8 @@ namespace AudioVisual.Domain.Contracts
         public int NumberOfSmallRooms { get; set; }
         public int NumberOfMoviesForBigRooms { get; set; }
         public int NumberOfMoviesForSmallRooms { get; set; }
-        public object MoviesForBigRooms { get; set; }
-        public object MoviesForSmallRooms { get; set; }
+        public List<string> MoviesForBigRooms { get; set; }
+        public List<string> MoviesForSmallRooms { get; set; }
 
     }
 }

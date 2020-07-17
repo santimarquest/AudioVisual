@@ -57,43 +57,30 @@ namespace AudioVisual.Controllers
             var genresForSmallRooms = await _moviesFromDBService.GetGenresForSmallRooms(genresForBigRooms);
 
             // Now we are starting to create the billboard, taking into account the billboardOptions and the genres for big and small rooms
-
-            var filterForBigRooms = _moviesFromAPIService.SetFilter(genresForBigRooms, genresDB, RoomSize.BIG);
-            var filterForSmallRooms = _moviesFromAPIService.SetFilter(genresForSmallRooms, genresDB, RoomSize.SMALL);
-
-            billboard.MoviesForBigRooms = await _moviesFromAPIService.GetMoviesFromAPI(filterForBigRooms);
-            billboard.MoviesForSmallRooms = await _moviesFromAPIService.GetMoviesFromAPI(filterForSmallRooms);
-
-            //using var jsonDoc = JsonDocument.Parse(moviesFromAPI.ToString());
-            //var root = jsonDoc.RootElement;
-
-            //var movieResults = root.GetProperty("results").EnumerateArray();
-
-            //foreach (var result in movieResults)
-            //{
-            //    var resultDoc = JsonDocument.Parse(result.ToString());
-            //    var resultRoot = resultDoc.RootElement;
-            //    var genres = resultRoot.GetProperty("genre_ids").EnumerateArray();
-
-            //    foreach (var genre in genres)
-            //    {
-            //        var value = genre.TryGetInt32(out int genreId);
-            //        if (!successfullGenres.Contains(genreId)) {
-            //            successfullGenres.Add(genreId);
-            //        }
-            //    }
-            // }
-
-            // var genresForBigRooms =
-            //from mfbr in moviesForBigRooms
-            //join mfapi in moviesFromAPI on mfbr.Title equals mfapi.Title
-            //select new MovieDTO
-            //{
-            //  genres = mfapi.genres
-            //};
+            billboard.MoviesForBigRooms = await GenerateMovies(billboard.NumberOfMoviesForBigRooms, genresDB, genresForBigRooms, RoomSize.BIG);
+            billboard.MoviesForSmallRooms = await GenerateMovies(billboard.NumberOfMoviesForSmallRooms, genresDB, genresForSmallRooms, RoomSize.SMALL);
 
             return Ok(billboard);
-            // return null;
+        }
+
+        private async Task<List<string>> GenerateMovies(int numberOfMovies, List<GenreDTO> genresDB, IEnumerable<Core.Domain.Genre> genres, RoomSize roomSize)
+        {
+            var result = new List<string>();
+            
+            var filter = _moviesFromAPIService.SetFilter(genres, genresDB, roomSize);
+            var moviesAPI = await _moviesFromAPIService.GetMoviesFromAPI(filter);
+            using (var jsonDoc = JsonDocument.Parse(moviesAPI.ToString()))
+            {
+                var root = jsonDoc.RootElement;
+                var movies = root.GetProperty("results").EnumerateArray().Take(numberOfMovies).ToList();
+
+                foreach (var movie in movies)
+                {
+                    result.Add(movie.GetProperty("title").GetString());
+                }
+            }
+
+            return result;
         }
 
         private async Task<List<GenreDTO>> MapGenresAPIDB()
