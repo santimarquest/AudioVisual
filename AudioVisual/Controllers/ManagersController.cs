@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AudioVisual.Business.Interfaces;
+using AudioVisual.Contracts;
 using AudioVisual.Contracts.DTO;
 using AudioVisual.Core.Domain;
 using AudioVisual.Domain.Contracts;
@@ -36,32 +37,32 @@ namespace AudioVisual.Controllers
             // billboardOptions.startDate=01-01-2020&billboardOptions.weeks=3&billboardOptions.BigRooms=5&billboardOptions.SmallRooms=3&
             // billboardOptions.cityId=9
 
-            var startdate = billboardOptions.Startdate;
-            var weeks = billboardOptions.Weeks;
-            var bigRooms = billboardOptions.BigRooms;
-            var smallRooms = billboardOptions.SmallRooms;
-            var cityId = billboardOptions.CityId;
+            // Create empty billboard, with all needed properties and settings
+            var billboard = BillboardBuilder.CreateBillboard()
+                .WithStartDate(billboardOptions.Startdate)
+                .WithNumberOfBigRooms(billboardOptions.BigRooms)
+                .WithNumberOfSmallRooms(billboardOptions.SmallRooms)
+                .ForTheNextWeeks(billboardOptions.Weeks)
+                .ForCity(billboardOptions.CityId)
+                .Build();
 
-            // So to create the Billboard, we need these number of movies:
-            var numberOfMoviesForBigRooms = bigRooms * weeks;
-            var numberOfMoviesForSmallRooms = smallRooms * weeks;
+            // Mapping Genres beetween public API and database
+            List<GenreDTO> genresDB = await MapGenresAPIDB();
 
             // Get successfull movies for big rooms in a city, and from them, get successfull genres for big rooms in that city
-            var moviesForBigRooms = await _moviesFromDBService.GetSuccessfullMoviesInCity(cityId, sizeRoom:"Big", numberOfMoviesForBigRooms);
+            var moviesForBigRooms = await _moviesFromDBService.GetSuccessfullMoviesInCity(billboard.CityId, sizeRoom: "Big", billboard.NumberOfMoviesForBigRooms);
             var genresForBigRooms = await _moviesFromDBService.GetGenresFromSuccesfullMovies(moviesForBigRooms);
 
-            // All genres not suitable for big rooms, are suitable for small rooms. And we choose 3 of them randomly to build the billboard
+            // All genres not suitable for big rooms, are suitable for small rooms. And we choose 2 of them randomly to build the billboard
             var genresForSmallRooms = await _moviesFromDBService.GetGenresForSmallRooms(genresForBigRooms);
 
             // Now we are starting to create the billboard, taking into account the billboardOptions and the genres for big and small rooms
-            var genresAPI = await _moviesFromAPIService.GetGenres();
-            List<GenreDTO> genresDB = await _moviesFromDBService.MapGenresAPIToGenresDB(genresAPI);
 
             var filterForBigRooms = _moviesFromAPIService.SetFilter(genresForBigRooms, genresDB, RoomSize.BIG);
             var filterForSmallRooms = _moviesFromAPIService.SetFilter(genresForSmallRooms, genresDB, RoomSize.SMALL);
 
-            var moviesFromAPIForBigRooms = await _moviesFromAPIService.GetMoviesFromAPI(filterForBigRooms);
-            var moviesFromAPIForSmallRooms = await _moviesFromAPIService.GetMoviesFromAPI(filterForSmallRooms);
+            billboard.MoviesForBigRooms = await _moviesFromAPIService.GetMoviesFromAPI(filterForBigRooms);
+            billboard.MoviesForSmallRooms = await _moviesFromAPIService.GetMoviesFromAPI(filterForSmallRooms);
 
             //using var jsonDoc = JsonDocument.Parse(moviesFromAPI.ToString());
             //var root = jsonDoc.RootElement;
@@ -91,8 +92,15 @@ namespace AudioVisual.Controllers
             //  genres = mfapi.genres
             //};
 
-            // return Ok(genresForBigRooms);
-            return null;
+            return Ok(billboard);
+            // return null;
+        }
+
+        private async Task<List<GenreDTO>> MapGenresAPIDB()
+        {
+            var genresAPI = await _moviesFromAPIService.GetGenres();
+            List<GenreDTO> genresDB = await _moviesFromDBService.MapGenresAPIToGenresDB(genresAPI);
+            return genresDB;
         }
 
         [HttpGet]

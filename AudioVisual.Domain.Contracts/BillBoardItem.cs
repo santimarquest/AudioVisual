@@ -8,7 +8,6 @@ namespace AudioVisual.Domain.Contracts
     public class BillBoardItem
     {
         public DateTime Date { get; set; }
-        public Room Room { get; set; }
         public MovieDTO Movie { get; set; }
     }
 }
