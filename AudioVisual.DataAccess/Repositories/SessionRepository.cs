@@ -1,11 +1,8 @@
-﻿
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AudioVisual.Core.Domain;
+﻿using AudioVisual.Core.Domain;
 using AudioVisual.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AudioVisual.DataAccess.Repositories
 {

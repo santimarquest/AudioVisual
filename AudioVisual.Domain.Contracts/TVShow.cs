@@ -1,7 +1,6 @@
 ﻿using AudioVisual.Domain.Contracts.Enum;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AudioVisual.Domain.Contracts
 {
@@ -14,7 +13,7 @@ namespace AudioVisual.Domain.Contracts
         public DateTime ReleaseDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Uri Website { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public List<string> KeyWorkds { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public List<(int,int, bool)> Seasons { get; set; }
+        public List<(int, int, bool)> Seasons { get; set; }
         public AgeRate AgeRate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Topic[] Topics { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }

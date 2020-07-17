@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AudioVisual.Domain.Contracts;
+﻿using AudioVisual.Domain.Contracts;
 using AudioVisual.Domain.Contracts.FilterOptions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace AudioVisual.Controllers

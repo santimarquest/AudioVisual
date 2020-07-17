@@ -8,7 +8,7 @@ namespace AudioVisual.Core.Repositories
     {
         IEnumerable<Genre> GetMovieGenres(int id);
         Task<IEnumerable<Genre>> GetGenresForSmallRooms(IEnumerable<Genre> genresForBigRooms);
-        Task <IEnumerable<Genre>> GetGenres();
+        Task<IEnumerable<Genre>> GetGenres();
         int GetGenreIdInDBByName(string genreName);
     }
 }

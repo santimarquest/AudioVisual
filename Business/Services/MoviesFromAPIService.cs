@@ -1,17 +1,14 @@
 ﻿using AudioVisual.Business.Interfaces;
 using AudioVisual.Contracts.DTO;
-using AudioVisual.Core.Domain;
 using AudioVisual.Domain.Contracts.Enum;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Genre = AudioVisual.Core.Domain.Genre;
 
@@ -21,7 +18,7 @@ namespace AudioVisual.Business.Services
     {
         private readonly IConfiguration _config;
 
-        public MoviesFromAPIService ( IConfiguration config)
+        public MoviesFromAPIService(IConfiguration config)
         {
             _config = config;
         }
@@ -37,7 +34,7 @@ namespace AudioVisual.Business.Services
                 $"&vote_average.gte={filter.VoteAverage}" +
                 $"&with_genres={filter.Genres}";
 
-            var response = await Task.Run(() => client.GetAsync(queryString));   
+            var response = await Task.Run(() => client.GetAsync(queryString));
 
             if (response.IsSuccessStatusCode)
             {
@@ -64,7 +61,7 @@ namespace AudioVisual.Business.Services
                 result.Append(item.genre);
             }
 
-            return result.ToString();           
+            return result.ToString();
         }
 
         public async Task<object> GetGenres()

@@ -2,7 +2,6 @@
 using AudioVisual.Domain.Contracts;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AudioVisual.Contracts
 {
@@ -47,7 +46,7 @@ namespace AudioVisual.Contracts
 
         public BillboardBuilder ForTheNextWeeks(int weeks)
         {
-            if (weeks <=0 || weeks > 3)
+            if (weeks <= 0 || weeks > 3)
             {
                 // Not allowed a Billboard for more than 3 weeks
                 throw new ArgumentException("Incorrect Weeks parameter");
@@ -89,9 +88,9 @@ namespace AudioVisual.Contracts
 
         public BillBoard Build()
         {
-          return new BillBoard(StartDate, EndDate, NumberOfBigRooms, NumberOfSmallRooms, 
-                                          NumberOfMoviesForBigRooms, NumberOfMoviesForSmallRooms,CityId);
+            return new BillBoard(StartDate, EndDate, NumberOfBigRooms, NumberOfSmallRooms,
+                                            NumberOfMoviesForBigRooms, NumberOfMoviesForSmallRooms, CityId);
         }
     }
-        
+
 }

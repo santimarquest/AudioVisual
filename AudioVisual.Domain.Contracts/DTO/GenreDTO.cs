@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AudioVisual.Contracts.DTO
+﻿namespace AudioVisual.Contracts.DTO
 {
     public class GenreDTO
     {

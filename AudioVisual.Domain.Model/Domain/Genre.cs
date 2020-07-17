@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AudioVisual.Core.Domain
+﻿namespace AudioVisual.Core.Domain
 {
     public partial class Genre
     {

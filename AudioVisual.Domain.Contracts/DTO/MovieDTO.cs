@@ -1,11 +1,9 @@
 ﻿using AudioVisual.Core.Domain;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AudioVisual.Contracts.DTO
 {
-   public class MovieDTO
+    public class MovieDTO
     {
         public int Id { get; set; }
         public string Title { get; set; }

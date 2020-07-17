@@ -5,7 +5,6 @@ using AudioVisual.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -16,7 +15,7 @@ namespace AudioVisual.Business.Services
         private readonly IMovieRepository _movieRepository;
         private readonly ISessionRepository _sessionRepository;
 
-        public MoviesFromDBService (IMovieRepository movieRepository, ISessionRepository sessionRepository)
+        public MoviesFromDBService(IMovieRepository movieRepository, ISessionRepository sessionRepository)
         {
             _movieRepository = movieRepository;
             _sessionRepository = sessionRepository;
@@ -72,8 +71,8 @@ namespace AudioVisual.Business.Services
         public async Task<IEnumerable<Genre>> GetGenresFromSuccesfullMovies(IEnumerable<MovieDTO> successfullMovies)
         {
             var resultGenres = new List<Genre>();
-           
-            foreach (var movie in successfullMovies) 
+
+            foreach (var movie in successfullMovies)
             {
                 var genres = movie.Genres;
                 foreach (var genre in genres)
@@ -95,7 +94,7 @@ namespace AudioVisual.Business.Services
             var genres = genresForSmallRooms.OrderBy(x => rnd.Next()).Take(2);
 
             return genres;
-           
+
         }
 
         public async Task<List<GenreDTO>> MapGenresAPIToGenresDB(object genresAPI)
@@ -129,7 +128,7 @@ namespace AudioVisual.Business.Services
             var resultMovies = new List<MovieDTO>();
             var successfullMovies = await GetSuccessfullMoviesInCity(cityId, sizeRoom, numberOfMoviesForSmallRooms);
 
-            foreach (var movie in successfullMovies) 
+            foreach (var movie in successfullMovies)
             {
                 var genresToRemove = new HashSet<Genre>(genresForBigRooms);
                 var movieDTO = new MovieDTO();
@@ -142,7 +141,7 @@ namespace AudioVisual.Business.Services
                 resultMovies.Add(movieDTO);
             }
 
-            return resultMovies;             
+            return resultMovies;
         }
     }
 }

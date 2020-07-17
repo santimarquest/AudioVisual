@@ -1,7 +1,6 @@
 ﻿using AudioVisual.Domain.Contracts.Enum;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AudioVisual.Domain.Contracts
 {
@@ -19,6 +18,6 @@ namespace AudioVisual.Domain.Contracts
         Uri Website { get; set; }
         List<string> KeyWorkds { get; set; }
         AgeRate AgeRate { get; set; }
-        
+
     }
 }
