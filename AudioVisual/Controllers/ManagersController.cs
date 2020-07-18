@@ -4,6 +4,7 @@ using AudioVisual.Contracts.DTO;
 using AudioVisual.Domain.Contracts;
 using AudioVisual.Domain.Contracts.Enum;
 using AudioVisual.Domain.Contracts.FilterOptions;
+using AudioVisual.NetCoreFilters;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace AudioVisual.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(CustomResultFilterAttribute))]
         public async Task<IActionResult> CreateIntelligentBillBoard([FromQuery] BillboardOptions billboardOptions)
         {
             // Example: https://localhost:44367/api/Managers/CreateIntelligentBillBoard?
