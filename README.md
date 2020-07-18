@@ -4,7 +4,7 @@ Comments in code are there with detailed explanation of the steps to generate a 
 
 In this exercise, I've focused on these aspects and made the following assumptions:
 1. To calculate blockbuster genres for big rooms: First get the movies from the test database with more seats sold, and then get the genres from these movies.
-2. To calculate minority genres: Every genre not included as a blockbuster genre, is considered as a minority genre. And then we take two random minoriry genres. 
+2. To calculate minority genres: Every genre not included as a blockbuster genre, is considered as a minority genre. And then we take two random minority genres. 
 3. I've used a light version of the builder design pattern, to create an empty billboard.
 4. I've used multithreading with the Task Parallel Library, to generate movies for big rooms and small rooms simultaneously.
 5. I've used an IResultFilter to adjust and set the final response object. 
