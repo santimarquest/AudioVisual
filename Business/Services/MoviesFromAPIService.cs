@@ -45,7 +45,7 @@ namespace AudioVisual.Business.Services
             return null;
         }
 
-        private string GetWithGenres(IEnumerable<Genre> genresForRooms, IEnumerable<GenreDTO> genresDTO)
+        private string GetFilterGenres(IEnumerable<Genre> genresForRooms, IEnumerable<GenreDTO> genresDTO)
         {
             var withGenres =
                 from gdto in genresDTO
@@ -64,7 +64,7 @@ namespace AudioVisual.Business.Services
             return result.ToString();
         }
 
-        public async Task<object> GetGenres()
+        public async Task<object> GetGenresFromAPI()
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri("https://api.themoviedb.org/3/genre/movie/list");
@@ -82,13 +82,14 @@ namespace AudioVisual.Business.Services
 
         public FilterDTO SetFilter(IEnumerable<Genre> genres, IEnumerable<GenreDTO> genresDB, RoomSize roomSize)
         {
+            // Get Movie Criteria from appsettings.json
             var moviCriteria = _config.GetSection($"MovieCriteria:{roomSize}").GetChildren();
             var appsettings = moviCriteria.ToDictionary(v => v.Key, v => v.Value);
 
             var filter = new FilterDTO();
             filter.VoteCount = appsettings["Vote_Count"];
             filter.VoteAverage = appsettings["Vote_Average"];
-            filter.Genres = GetWithGenres(genres, genresDB);
+            filter.Genres = GetFilterGenres(genres, genresDB);
 
             return filter;
         }

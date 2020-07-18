@@ -121,9 +121,7 @@ namespace AudioVisual.Business.Services
 
                 genresDTO.Add(genreDTO);
             }
-
             return genresDTO;
         }
-
      }
 }

@@ -92,13 +92,12 @@ namespace AudioVisual.Controllers
                     result.Add(movie.GetProperty("title").GetString());
                 }
             }
-
             return result;
         }
 
         private async Task<IEnumerable<GenreDTO>> MapGenresAPIDB()
         {
-            var genresAPI = await _moviesFromAPIService.GetGenres();
+            var genresAPI = await _moviesFromAPIService.GetGenresFromAPI();
             var genresDB = await _moviesFromDBService.MapGenresAPIToGenresDB(genresAPI);
             return genresDB;
         }

@@ -9,7 +9,7 @@ namespace AudioVisual.Business.Interfaces
     public interface IMoviesFromAPIService
     {
         Task<object> GetMoviesFromAPI(FilterDTO filter);
-        Task<object> GetGenres();
+        Task<object> GetGenresFromAPI();
         FilterDTO SetFilter(IEnumerable<Genre> genres, IEnumerable<GenreDTO> genresDB, RoomSize roomSize);
     }
 }
