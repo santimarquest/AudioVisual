@@ -45,7 +45,7 @@ namespace AudioVisual.Controllers
                 .Build();
 
             // Mapping Genres beetween public API and database
-            List<GenreDTO> genresDB = await MapGenresAPIDB();
+            var genresDB = await MapGenresAPIDB();
 
             // Get successfull movies for big rooms in a city, and from them, get successfull genres for big rooms in that city
             var moviesForBigRooms = await _moviesFromDBService.GetSuccessfullMoviesInCity(billboard.CityId, sizeRoom: "Big", billboard.NumberOfMoviesForBigRooms);
@@ -64,7 +64,7 @@ namespace AudioVisual.Controllers
             return Ok(billboard);
         }
 
-        private async Task GenerateMoviesForBillBoard(BillBoard billboard, List<GenreDTO> genresDB, IEnumerable<Core.Domain.Genre> genresForBigRooms, IEnumerable<Core.Domain.Genre> genresForSmallRooms)
+        private async Task GenerateMoviesForBillBoard(BillBoard billboard, IEnumerable<GenreDTO> genresDB, IEnumerable<Core.Domain.Genre> genresForBigRooms, IEnumerable<Core.Domain.Genre> genresForSmallRooms)
         {
             var taskList = new List<Task<List<string>>>();
             taskList.Add(GenerateMovies(billboard.NumberOfMoviesForBigRooms, genresDB, genresForBigRooms, RoomSize.BIG));
@@ -76,7 +76,7 @@ namespace AudioVisual.Controllers
             billboard.MoviesForSmallRooms = resultMovies[1];
         }
 
-        private async Task<List<string>> GenerateMovies(int numberOfMovies, List<GenreDTO> genresDB, IEnumerable<Core.Domain.Genre> genres, RoomSize roomSize)
+        private async Task<List<string>> GenerateMovies(int numberOfMovies, IEnumerable<GenreDTO> genresDB, IEnumerable<Core.Domain.Genre> genres, RoomSize roomSize)
         {
             var result = new List<string>();
 
@@ -96,10 +96,10 @@ namespace AudioVisual.Controllers
             return result;
         }
 
-        private async Task<List<GenreDTO>> MapGenresAPIDB()
+        private async Task<IEnumerable<GenreDTO>> MapGenresAPIDB()
         {
             var genresAPI = await _moviesFromAPIService.GetGenres();
-            List<GenreDTO> genresDB = await _moviesFromDBService.MapGenresAPIToGenresDB(genresAPI);
+            var genresDB = await _moviesFromDBService.MapGenresAPIToGenresDB(genresAPI);
             return genresDB;
         }
 

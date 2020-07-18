@@ -10,6 +10,6 @@ namespace AudioVisual.Business.Interfaces
     {
         Task<object> GetMoviesFromAPI(FilterDTO filter);
         Task<object> GetGenres();
-        FilterDTO SetFilter(IEnumerable<Genre> genres, List<GenreDTO> genresDB, RoomSize roomSize);
+        FilterDTO SetFilter(IEnumerable<Genre> genres, IEnumerable<GenreDTO> genresDB, RoomSize roomSize);
     }
 }

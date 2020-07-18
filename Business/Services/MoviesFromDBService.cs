@@ -88,6 +88,8 @@ namespace AudioVisual.Business.Services
 
         public async Task<IEnumerable<Genre>> GetGenresForSmallRooms(IEnumerable<Genre> genresForBigRooms)
         {
+            // We take two random different genres from the ones calculated form big rooms
+            // This is an assumption that mus be verified with a domain's expert
             var genresForSmallRooms = await _movieRepository.GetGenresForSmallRooms(genresForBigRooms);
 
             var rnd = new Random();
@@ -97,7 +99,7 @@ namespace AudioVisual.Business.Services
 
         }
 
-        public async Task<List<GenreDTO>> MapGenresAPIToGenresDB(object genresAPI)
+        public async Task<IEnumerable<GenreDTO>> MapGenresAPIToGenresDB(object genresAPI)
         {
             var genresDTO = new List<GenreDTO>();
 
@@ -123,25 +125,5 @@ namespace AudioVisual.Business.Services
             return genresDTO;
         }
 
-        public async Task<IEnumerable<MovieDTO>> GetSuccessfullMoviesInCity(int cityId, string sizeRoom, int numberOfMoviesForSmallRooms, IEnumerable<Genre> genresForBigRooms)
-        {
-            var resultMovies = new List<MovieDTO>();
-            var successfullMovies = await GetSuccessfullMoviesInCity(cityId, sizeRoom, numberOfMoviesForSmallRooms);
-
-            foreach (var movie in successfullMovies)
-            {
-                var genresToRemove = new HashSet<Genre>(genresForBigRooms);
-                var movieDTO = new MovieDTO();
-
-                movieDTO.Id = movie.Id;
-                movieDTO.Title = movie.Title;
-                movieDTO.CityId = movie.CityId;
-                movieDTO.SeatsSold = movie.SeatsSold;
-                movieDTO.Genres = movie.Genres.Where(m => !genresToRemove.Any(g => g.Id == m.Id)).ToList();
-                resultMovies.Add(movieDTO);
-            }
-
-            return resultMovies;
-        }
-    }
+     }
 }

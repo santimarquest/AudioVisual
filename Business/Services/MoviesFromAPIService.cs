@@ -80,7 +80,7 @@ namespace AudioVisual.Business.Services
             return null;
         }
 
-        public FilterDTO SetFilter(IEnumerable<Genre> genres, List<GenreDTO> genresDB, RoomSize roomSize)
+        public FilterDTO SetFilter(IEnumerable<Genre> genres, IEnumerable<GenreDTO> genresDB, RoomSize roomSize)
         {
             var moviCriteria = _config.GetSection($"MovieCriteria:{roomSize}").GetChildren();
             var appsettings = moviCriteria.ToDictionary(v => v.Key, v => v.Value);
