@@ -14,6 +14,10 @@ namespace AudioVisual.DataAccess.Repositories
         {
         }
 
+        public MovieRepository()
+        {
+        }
+
         public IEnumerable<Genre> GetMovieGenres(int movieId)
         {
             var movieGenres = BeezycinemaContext.MovieGenre

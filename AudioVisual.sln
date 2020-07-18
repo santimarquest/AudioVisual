@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioVisual", "AudioVisual\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioVisual.Contracts", "AudioVisual.Domain.Contracts\AudioVisual.Contracts.csproj", "{F38D5C11-DD23-437E-81F1-7617F08E1CD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioVisual.Business", "Business\AudioVisual.Business.csproj", "{FD7686B4-CBFB-4E27-A3A3-9E1B60513B43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioVisual.Business", "Business\AudioVisual.Business.csproj", "{FD7686B4-CBFB-4E27-A3A3-9E1B60513B43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioVisual.Core", "AudioVisual.Domain.Model\AudioVisual.Core.csproj", "{D29D8CBC-7AB6-4DE0-BAC6-263EE03632FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioVisual.Core", "AudioVisual.Domain.Model\AudioVisual.Core.csproj", "{D29D8CBC-7AB6-4DE0-BAC6-263EE03632FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioVisual.DataAccess", "AudioVisual.DataAccess\AudioVisual.DataAccess.csproj", "{59523B16-5CE7-460A-A03F-6AEB67347C72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioVisual.DataAccess", "AudioVisual.DataAccess\AudioVisual.DataAccess.csproj", "{59523B16-5CE7-460A-A03F-6AEB67347C72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioVisualTest", "AudioVisualTest\AudioVisualTest.csproj", "{6330D91D-AEEC-46BB-BC70-C7986504C363}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{59523B16-5CE7-460A-A03F-6AEB67347C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59523B16-5CE7-460A-A03F-6AEB67347C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59523B16-5CE7-460A-A03F-6AEB67347C72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6330D91D-AEEC-46BB-BC70-C7986504C363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6330D91D-AEEC-46BB-BC70-C7986504C363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6330D91D-AEEC-46BB-BC70-C7986504C363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6330D91D-AEEC-46BB-BC70-C7986504C363}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

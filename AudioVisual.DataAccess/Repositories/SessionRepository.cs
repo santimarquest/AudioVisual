@@ -8,6 +8,10 @@ namespace AudioVisual.DataAccess.Repositories
 {
     public class SessionRepository : Repository<Session>, ISessionRepository
     {
+        public SessionRepository()
+        {
+        }
+
         public SessionRepository(BeezyCinemaContext context) : base(context)
         {
         }

@@ -12,6 +12,11 @@ namespace AudioVisual.DataAccess.Repositories
         protected readonly DbContext Context;
         private readonly DbSet<TEntity> _entities;
 
+        public Repository()
+        {
+
+        }
+
         public Repository(DbContext context)
         {
             Context = context;

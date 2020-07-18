@@ -2,7 +2,7 @@
 {
     public enum RoomSize
     {
-        BIG,
-        SMALL
+        Big,
+        Small
     }
 }

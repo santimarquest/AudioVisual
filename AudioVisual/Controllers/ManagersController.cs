@@ -48,7 +48,7 @@ namespace AudioVisual.Controllers
             var genresDB = await MapGenresAPIDB();
 
             // Get successfull movies for big rooms in a city, and from them, get successfull genres for big rooms in that city
-            var moviesForBigRooms = await _moviesFromDBService.GetSuccessfullMoviesInCity(billboard.CityId, sizeRoom: "Big", billboard.NumberOfMoviesForBigRooms);
+            var moviesForBigRooms = await _moviesFromDBService.GetSuccessfullMoviesInCity(billboard.CityId, sizeRoom: RoomSize.Big.ToString(), billboard.NumberOfMoviesForBigRooms);
             var genresForBigRooms = await _moviesFromDBService.GetGenresFromSuccesfullMovies(moviesForBigRooms);
 
             // All genres not suitable for big rooms, are suitable for small rooms. And we choose 2 of them randomly to build the billboard
@@ -67,8 +67,8 @@ namespace AudioVisual.Controllers
         private async Task GenerateMoviesForBillBoard(BillBoard billboard, IEnumerable<GenreDTO> genresDB, IEnumerable<Core.Domain.Genre> genresForBigRooms, IEnumerable<Core.Domain.Genre> genresForSmallRooms)
         {
             var taskList = new List<Task<List<string>>>();
-            taskList.Add(GenerateMovies(billboard.NumberOfMoviesForBigRooms, genresDB, genresForBigRooms, RoomSize.BIG));
-            taskList.Add(GenerateMovies(billboard.NumberOfMoviesForSmallRooms, genresDB, genresForSmallRooms, RoomSize.SMALL));
+            taskList.Add(GenerateMovies(billboard.NumberOfMoviesForBigRooms, genresDB, genresForBigRooms, RoomSize.Big));
+            taskList.Add(GenerateMovies(billboard.NumberOfMoviesForSmallRooms, genresDB, genresForSmallRooms, RoomSize.Small));
 
             var resultMovies = await Task.WhenAll(taskList.ToList()).ConfigureAwait(false);
 
