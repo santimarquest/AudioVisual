@@ -10,10 +10,7 @@ namespace AudioVisual.NetCoreFilters
 {
     public class CustomResultFilterAttribute : Attribute, IResultFilter
     {
-        public void OnResultExecuted(ResultExecutedContext context)
-        {
-        }
-        public void OnResultExecuting(ResultExecutingContext context)
+        public void OnResultExecuting (ResultExecutingContext context)
         {
             var billboard = (AudioVisual.Domain.Contracts.BillBoard)((Microsoft.AspNetCore.Mvc.ObjectResult)context.Result).Value;
             var weeks = ((Microsoft.AspNetCore.Http.HttpRequest)((Microsoft.AspNetCore.Http.DefaultHttpContext)context.HttpContext).Request).Query["billboardOptions.weeks"];
@@ -21,6 +18,10 @@ namespace AudioVisual.NetCoreFilters
 
             billboard.MoviesForBigRooms = GenerateSchedule(billboard.MoviesForBigRooms, numberOfWeeks, billboard.NumberOfBigRooms);
             billboard.MoviesForSmallRooms = GenerateSchedule(billboard.MoviesForSmallRooms, numberOfWeeks, billboard.NumberOfSmallRooms);
+        }
+        public void OnResultExecuted (ResultExecutedContext context)
+        {
+            
         }
 
         private static List<string> GenerateSchedule(List<string> movies, int numberOfWeeks, int numberOfRooms)
@@ -32,7 +33,7 @@ namespace AudioVisual.NetCoreFilters
 
             foreach (var item in movies)
             {
-                result.Add($"[semana {weekItem % numberOfWeeks}, sala {roomItem % numberOfRooms}, {item}]");
+                result.Add($"[semana {(weekItem % numberOfWeeks) + 1}, sala {(roomItem % numberOfRooms) + 1}, {item}]");
 
                 roomItem += 1;
                 if (roomItem % numberOfRooms == 0)
@@ -40,7 +41,6 @@ namespace AudioVisual.NetCoreFilters
                     weekItem += 1;
                 }
             }
-
             return result;
         }
     }
