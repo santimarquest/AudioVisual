@@ -6,6 +6,7 @@ using AudioVisual.Domain.Contracts.Enum;
 using AudioVisual.Domain.Contracts.FilterOptions;
 using AudioVisual.NetCoreFilters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,20 @@ namespace AudioVisual.Controllers
     [ApiController]
     public class ManagersController : ControllerBase
     {
+        private readonly ILogger<ManagersController> _logger;
+
         private readonly IMoviesFromAPIService _moviesFromAPIService;
         private readonly IMoviesFromDBService _moviesFromDBService;
 
-        public ManagersController(IMoviesFromAPIService moviesFromAPIService, IMoviesFromDBService moviesFromDBService)
+        public ManagersController(IMoviesFromAPIService moviesFromAPIService, 
+                                                 IMoviesFromDBService moviesFromDBService,
+                                                 ILogger<ManagersController> logger)
         {
             _moviesFromAPIService = moviesFromAPIService;
             _moviesFromDBService = moviesFromDBService;
+            _logger = logger;
         }
-
+         
         [HttpGet]
         [TypeFilter(typeof(CustomResultFilterAttribute))]
         public async Task<IActionResult> CreateIntelligentBillBoard([FromQuery] BillboardOptions billboardOptions)
