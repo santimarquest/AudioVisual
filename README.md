@@ -1,4 +1,5 @@
 # AudioVisual : Web API with C# and .Net Core 3.1
+In the solution delivered, we will value aspects such as maintainable code, SOLID principles, rational use of architecture standards/patterns, organised code structure, data access patterns, exception handling, testing, logging… Or also additional documentation or diagrams you might provide.
 
 Comments in code are there with detailed explanation of the steps to generate a billboard.
 
@@ -38,4 +39,4 @@ An example of the request result would be a json object like:
 
 # Performance
 I've executed the CreateIntelligentBillBoard request 100 times with the Postman runner, the result is saved in the Beezy.postman_test_run.json file.
-The median execution time is about 1'5 seconds.
+The average execution time is about 1'5 seconds.
