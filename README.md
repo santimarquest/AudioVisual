@@ -27,6 +27,7 @@ blockbuster genres and minority genres can be cached, to avoid calculate them fo
     }
  An easy way to get different movies as a result, would be changing this movie criteria in the appsettings.json files. 
  12. I've configured logging to use Serilog with an output file Mylogs\logs\log.ndjson (in the root of the AudioVisual project).
+ 13. I've used a middleware component for global exception handling, login all errors to an output file Mylogs\logs\GlobalExceptions.ndjson. 
 
 # Setup
 Just download to a local folder the zip version of this repository, and unzip at the same folder. You can open the solution in Visual Studio 2019 Community and run the tests, all of them should pass. 
