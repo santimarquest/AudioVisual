@@ -39,4 +39,4 @@ An example of the request result would be a json object like:
 
 # Performance
 I've executed the CreateIntelligentBillBoard request 100 times with the Postman runner, the result is saved in the Beezy.postman_test_run.json file.
-The median execution time is about 1'5 seconds.
+The average execution time is about 1'5 seconds.
