@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Mylogs\logs\GlobalExceptions.ndjson" />
     <None Remove="Mylogs\logs\log.ndjson" />
   </ItemGroup>
 

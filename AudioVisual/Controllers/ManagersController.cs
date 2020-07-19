@@ -8,6 +8,7 @@ using AudioVisual.NetCoreFilters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -21,18 +22,14 @@ namespace AudioVisual.Controllers
     [ApiController]
     public class ManagersController : ControllerBase
     {
-        private readonly ILogger<ManagersController> _logger;
-
         private readonly IMoviesFromAPIService _moviesFromAPIService;
         private readonly IMoviesFromDBService _moviesFromDBService;
 
         public ManagersController(IMoviesFromAPIService moviesFromAPIService, 
-                                                 IMoviesFromDBService moviesFromDBService,
-                                                 ILogger<ManagersController> logger)
+                                                 IMoviesFromDBService moviesFromDBService)
         {
             _moviesFromAPIService = moviesFromAPIService;
             _moviesFromDBService = moviesFromDBService;
-            _logger = logger;
         }
          
         [HttpGet]

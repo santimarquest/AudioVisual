@@ -3,6 +3,7 @@ using AudioVisual.Business.Services;
 using AudioVisual.Core.Repositories;
 using AudioVisual.DataAccess;
 using AudioVisual.DataAccess.Repositories;
+using AudioVisual.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,8 @@ namespace AudioVisual
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseGlobalExceptionMiddleware();
 
             app.UseHttpsRedirection();
 
